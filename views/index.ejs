@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen flex flex-col">
+        <header class="bg-blue-600 text-white p-4">
+            <div class="container mx-auto">
+                <h1 class="text-3xl font-bold">M FOR MUMS</h1>
+                <p class="text-blue-100">Personal Training Services</p>
+            </div>
+        </header>
+
+        <main class="flex-grow container mx-auto p-4">
+            <section class="text-center py-12">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Welcome to M FOR MUMS</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">Your personal training service designed specifically for mothers.</p>
+            </section>
+        </main>
+
+        <footer class="bg-gray-800 text-white p-4">
+            <div class="container mx-auto text-center">
+                <p>&copy; <%= new Date().getFullYear() %> M FOR MUMS. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
