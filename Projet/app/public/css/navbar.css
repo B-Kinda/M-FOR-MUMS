@@ -7,3 +7,40 @@
 	--bordeaux-color: #734158;
 	--blue-color: #3e4e5d;
 }
+@font-face {
+	font-family: "The Seasons Font Family";
+	src: url("/font/The Seasons Font Family/fonts/fonnts.com-theseasons-bd.otf");
+}
+body {
+	font-family: "The Seasons Font Family", sans-serif;
+}
+.navbar-nav {
+	gap: 0.1rem;
+}
+.btn-nav-custom {
+	/* La classe .btn fournit déjà le padding et la typo */
+	/* Couleur du texte par défaut (gris foncé de Bootstrap) */
+	color: var(--secondary-color);
+
+	/* Assure que l'arrière-plan est transparent pour un look net */
+	background-color: var(--primary-color);
+
+	/* Bordure transparente pour éviter un saut de taille lors de l'activation d'une bordure au survol */
+	border: none;
+	border-radius: 0;
+
+	/* Active la transition fluide des couleurs/fonds lors du survol/focus, similaire à $btn-transition de Bootstrap [7] */
+	transition:
+		color 0.15s ease-in-out,
+		background-color 0.15s ease-in-out,
+		border-color 0.15s ease-in-out,
+		box-shadow 0.15s ease-in-out;
+}
+.btn-nav-custom:hover,
+.btn-nav-custom:focus {
+	background-color: var(--tertiary-color);
+
+	color: var(--bordeaux-color);
+
+	box-shadow: none;
+}
