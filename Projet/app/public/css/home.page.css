@@ -7,3 +7,18 @@
 	--bordeaux-color: #734158;
 	--blue-color: #3e4e5d;
 }
+
+#main-content-split {
+	background-image: url("/images/Paysage Pexels 7919.jpg");
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+#right-side {
+	background-color: rgba(62, 78, 93, 0.7);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	border-radius: 0.5rem;
+}
+#content-overlay {
+	color: rgba(255, 255, 255, 1);
+}

@@ -2,7 +2,7 @@
 	--primary-color: #bebdbe;
 	--secondary-color: #dedadd;
 	--tertiary-color: #cec8c8;
-	--quaternary-color: #e9e6e0;
+	--components-color: #e9e6e0;
 	--quinary-color: #e6e6e0;
 	--bordeaux-color: #734158;
 	--blue-color: #3e4e5d;
@@ -14,19 +14,26 @@
 body {
 	font-family: "The Seasons Font Family", sans-serif;
 }
+.header-custom {
+	background-color: var(--quinary-color);
+}
+.img-fluid {
+	width: 30%;
+	margin: 0;
+}
 .navbar-nav {
 	gap: 0.1rem;
 }
 .btn-nav-custom {
 	/* La classe .btn fournit déjà le padding et la typo */
 	/* Couleur du texte par défaut (gris foncé de Bootstrap) */
-	color: var(--secondary-color);
+	color: var(--components-color);
 
 	/* Assure que l'arrière-plan est transparent pour un look net */
-	background-color: var(--primary-color);
+	background-color: var(--tertiary-color);
 
 	/* Bordure transparente pour éviter un saut de taille lors de l'activation d'une bordure au survol */
-	border: none;
+	border: 1rem;
 	border-radius: 0;
 
 	/* Active la transition fluide des couleurs/fonds lors du survol/focus, similaire à $btn-transition de Bootstrap [7] */
