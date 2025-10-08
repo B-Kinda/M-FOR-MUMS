@@ -1,0 +1,19 @@
+/* Styles existants */
+:root {
+	--primary-color: #bebdbe;
+	--secondary-color: #dedadd;
+	--tertiary-color: #cec8c8;
+	--components-color: #e9e6e0;
+	--quinary-color: #e6e6e0;
+	--bordeaux-color: #734158;
+	--blue-color: #3e4e5d;
+}
+.div-custom {
+	background-color: var(--primary-color);
+}
+.img-custom {
+}
+
+.container-full-height {
+	height: 100vh;
+}
