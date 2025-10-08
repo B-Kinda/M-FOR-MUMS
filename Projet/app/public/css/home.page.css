@@ -22,3 +22,8 @@
 #content-overlay {
 	color: rgba(255, 255, 255, 1);
 }
+@media (max-width: 768px) {
+	.logo-custom {
+		max-width: 50%;
+	}
+}

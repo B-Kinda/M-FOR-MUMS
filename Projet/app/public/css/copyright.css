@@ -1,0 +1,13 @@
+:root {
+	--primary-color: #bebdbe;
+	--secondary-color: #dedadd;
+	--tertiary-color: #cec8c8;
+	--quaternary-color: #e9e6e0;
+	--quinary-color: #e6e6e0;
+	--bordeaux-color: #734158;
+	--blue-color: #3e4e5d;
+}
+.copyright {
+	color: var(--primary-color);
+	display: flex;
+}
