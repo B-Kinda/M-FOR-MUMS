@@ -7,7 +7,7 @@
 	--bordeaux-color: #734158;
 	--blue-color: #3e4e5d;
 }
-.copyright {
+.copyright-home {
 	color: var(--primary-color);
 	display: flex;
 }

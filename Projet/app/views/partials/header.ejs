@@ -14,10 +14,11 @@
   <link rel="stylesheet" href="/css/home.page.css">
   <link rel="stylesheet" href="/css/navbar.css">
   <link rel="stylesheet" href="/css/urJourney.css">
+  <link rel="stylesheet" href="/css/work.css">
   <link rel="stylesheet" href="/css/copyright.css">
 
   <!-- JS -->
-  <script src="/js/home.page.js" defer></script>
+  <script src="/js/homepage.js" defer></script>
   <script src="/js/navbar.js" defer></script>
   <title>M FOR MUMS</title>
 </head>
@@ -39,40 +40,34 @@
           <span class="navbar-toggler-icon"></span>
         </button>
   
-        <!-- Navigation links -->
-        
-        <!-- MODIFICATION : Suppression de 'container', ajout de w-100 et d-flex -->
         <div class="collapse navbar-collapse w-100 ms-0" id="mainNavbar"> 
-          <!-- MODIFICATION : ul utilise d-flex, w-100, et suppression des marges/gouttières (g-2 est supprimé) -->
+
           <ul class="navbar-nav d-flex w-100 list-unstyled mb-0"> 
             
-            <!-- LI prend h-100 et flex-fill (largeur égale forcée) -->
-            <li class="nav-item flex-fill h-100"> 
-              <!-- A est, h-100 et d-flex pour centrer le texte -->
-              <a class="btn btn-nav-custom w-100 h-100 d-flex justify-content-center align-items-center" href="/">Welcome words</a>
+            <li class="nav-item flex-fill h-100" > 
+              <a class="btn btn-nav-custom w-100 h-100 d-flex justify-content-center align-items-center" id="homePage-custom" href="/">Welcome words</a>
             </li>
-            
-            <!-- Répétez ce pattern pour tous les <li> -->
-            <li class="nav-item flex-fill h-100">
-              <a class="btn btn-nav-custom w-100 h-100 d-flex justify-content-center align-items-center" href="/yourJourney">Your journey</a>
+            <li class="nav-item flex-fill h-100 ">
+              <a class="btn btn-nav-custom w-100 h-100 d-flex justify-content-center align-items-center" id="urJourney-custom" href="/yourJourney">Your journey</a>
             </li>
-            <li class="nav-item flex-fill h-100">
-              <a class="btn btn-nav-custom w-100 h-100 d-flex justify-content-center align-items-center" href="#">Why work with a PT</a>
+            <li class="nav-item flex-fill h-100 ">
+              <a class="btn btn-nav-custom w-100 h-100 d-flex justify-content-center align-items-center" id="work-custom"href="/work">Why work with a PT</a>
             </li>
-            <li class="nav-item flex-fill h-100">
-              <a class="btn btn-nav-custom w-100 h-100 d-flex justify-content-center align-items-center" href="#">About me</a>
+            <li class="nav-item flex-fill h-100 ">
+              <a class="btn btn-nav-custom w-100 h-100 d-flex justify-content-center align-items-center"id="about-custom" href="#">About me</a>
             </li>
-            <li class="nav-item flex-fill h-100">
-              <a class="btn btn-nav-custom w-100 h-100 d-flex justify-content-center align-items-center" href="#">Price list</a>
+            <li class="nav-item flex-fill h-100 ">
+              <a class="btn btn-nav-custom w-100 h-100 d-flex justify-content-center align-items-center"id="price-custom" href="#">Price list</a>
             </li>
-            <li class="nav-item flex-fill h-100">
-              <a class="btn btn-nav-custom w-100 h-100 d-flex justify-content-center align-items-center" href="#">Blog</a>
+            <li class="nav-item flex-fill h-100 ">
+              <a class="btn btn-nav-custom w-100 h-100 d-flex justify-content-center align-items-center"id="blog-custom" href="#">Blog</a>
             </li>
-            <li class="nav-item flex-fill h-100">
-              <a class="btn btn-nav-custom w-100 h-100 d-flex justify-content-center align-items-center" href="#">Contact</a>
+            <li class="nav-item flex-fill h-100 ">
+              <a class="btn btn-nav-custom w-100 h-100 d-flex justify-content-center align-items-center"id="contact-custom" href="#">Contact</a>
             </li>
           </ul>
         </div>
+        <div class="auth"></div>
       </div>
     </nav>
   </header>
