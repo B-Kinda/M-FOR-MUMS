@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-signin-client_id" content="<%= process.env.GOOGLE_CLIENT_ID %>">
 
   <!-- CSS Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" 
@@ -16,10 +17,24 @@
   <link rel="stylesheet" href="/css/urJourney.css">
   <link rel="stylesheet" href="/css/work.css">
   <link rel="stylesheet" href="/css/copyright.css">
+  <link rel="stylesheet" href="/css/signup.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+  <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  
 
   <!-- JS -->
   <script src="/js/homepage.js" defer></script>
   <script src="/js/navbar.js" defer></script>
+  <script src="/js/signUp.js" defer></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="https://apis.google.com/js/api:client.js" defer></script>
+  
   <title>M FOR MUMS</title>
 </head>
 <body>
@@ -65,9 +80,11 @@
             <li class="nav-item flex-fill h-100 ">
               <a class="btn btn-nav-custom w-100 h-100 d-flex justify-content-center align-items-center"id="contact-custom" href="#">Contact</a>
             </li>
+            <li class="nav-item flex-fill h-100 ">
+              <a class="btn btn-nav-custom w-100 h-100 d-flex justify-content-center align-items-center"id="contact-custom" href="/signup">Connexion</a>
+            </li>
           </ul>
         </div>
-        <div class="auth"></div>
       </div>
     </nav>
   </header>
