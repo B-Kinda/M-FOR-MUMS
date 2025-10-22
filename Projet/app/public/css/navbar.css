@@ -51,3 +51,57 @@ body {
 
 	box-shadow: none;
 }
+/* Style pour le menu déroulant du profil */
+.dropdown-toggle::after {
+	display: none;
+}
+
+/* Style pour l'image de profil */
+.profile-img {
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 2px solid #fff;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Animation au survol */
+.dropdown-item:hover {
+	background-color: #f8f9fa;
+}
+
+/* Style pour le bouton de connexion Google */
+.g-signin2 {
+	margin-left: 1rem;
+}
+/* Style pour le conteneur du bouton Google */
+.g_id_signin {
+	margin: 0;
+	padding: 0;
+	border: none;
+	background: none;
+}
+
+/* Ajustement pour le bouton Google */
+.g_id_signin iframe {
+	width: 200px;
+	height: 40px;
+	margin: 0;
+}
+
+/* Style pour le menu déroulant */
+.dropdown-toggle::after {
+	margin-left: 0.5em;
+	vertical-align: middle;
+}
+
+/* Style pour l'avatar */
+.avatar {
+	width: 32px;
+	height: 32px;
+	object-fit: cover;
+	border-radius: 50%;
+	border: 2px solid #fff;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

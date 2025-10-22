@@ -1,0 +1,30 @@
+<%- include('partials/header') %>
+    
+    <section class="container">
+        <h1>Bienvenue sur votre tableau de bord, <%= user.name %> !</h1>
+        
+        <div class="user-info d-flex align-items-center gap-4">
+            <% if (user.photo) { %>
+                <div class="profile-pic-container">
+                    <img 
+                        src="<%= user.photo %>" 
+                        alt="Photo de profil" 
+                        class="profile-pic rounded-circle"
+                        style="width: 100px; height: 100px; object-fit: cover; border: 3px solid #f0f0f0;"
+                        onerror="this.onerror=null; this.src='/images/default-avatar.png'"
+                    >
+                </div>
+            <% } %>
+            <div class="user-details">
+                <h2><%= user.name %></h2>
+                <p class="mb-1"><strong>Email :</strong> <%= user.email %></p>
+                <p class="text-muted"><i class="fab fa-google me-2"></i>Connecté avec Google</p>
+            </div>
+        </div>
+        
+        <div class="dashboard-actions">
+            <a href="/auth/logout" class="btn btn-primary">Déconnexion</a>
+        </div>
+    </section>    
+    <%- include('partials/footer') %>
+

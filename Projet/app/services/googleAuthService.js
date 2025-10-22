@@ -1,40 +1,60 @@
-const { OAuth2Client } = require("google-auth-library");
-const WEB_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+import { OAuth2Client } from "google-auth-library";
 
-if (!WEB_CLIENT_ID) {
-	throw new Error("GOOGLE_CLIENT_ID non défini dans l'environnement.");
-}
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
-const client = new OAuth2Client(WEB_CLIENT_ID);
-
-/**
- * Vérifie l'intégrité du jeton d'ID Google et extrait les informations de profil.
- * La fonction vérifie la signature JWT, aud, exp, et iss [31].
- * @param {string} token Le jeton d'ID reçu du client.
- */
-
-verifyGoogleToken = async (token) => {
+export const verifyGoogleToken = async (idToken) => {
 	try {
+		if (!idToken) {
+			console.error("Aucun token fourni");
+			throw new Error("Token manquant");
+		}
+
+		if (!process.env.GOOGLE_CLIENT_ID) {
+			console.error("GOOGLE_CLIENT_ID n'est pas défini dans les variables d'environnement");
+			throw new Error("Configuration serveur incomplète");
+		}
+
+		console.log("Début de la vérification du token...");
+		console.log("Longueur du token:", idToken.length);
+		console.log("Client ID utilisé:", process.env.GOOGLE_CLIENT_ID);
+		
 		const ticket = await client.verifyIdToken({
-			idToken: token,
-			audience: WEB_CLIENT_ID, // Doit correspondre à votre ID client [23, 29]
+			idToken,
+			audience: process.env.GOOGLE_CLIENT_ID,
+		});
+		
+		const payload = ticket.getPayload();
+		
+		if (!payload) {
+			console.error("Aucune charge utile (payload) dans le ticket");
+			throw new Error("Token invalide");
+		}
+
+		console.log("Token vérifié avec succès. Payload:", {
+			userid: payload.sub,
+			email: payload.email,
+			name: payload.name,
+			hosted_domain: payload.hd // Domaine hébergé (pour les comptes G Suite)
 		});
 
-		const payload = ticket.getPayload();
-
-		// L'ID unique du compte Google (revendication 'sub') est recommandé comme clé primaire [23, 30, 32]
-		const userid = payload.sub;
-
-		// Récupération des informations de profil
-		const email = payload.email;
-		const name = payload.name;
-		// etc.
-
-		return { userid, email, name };
+		return {
+			userid: payload.sub,
+			email: payload.email,
+			name: payload.name,
+			picture: payload.picture,
+		};
 	} catch (error) {
-		// En cas d'échec de la vérification (signature invalide, jeton expiré, audience incorrecte)
-		throw new Error("Jeton Google invalide ou vérification échouée.");
+		console.error("Erreur de vérification du token Google:", error.message);
+		console.error("Stack trace:", error.stack);
+		
+		if (error.message.includes("Token used too late")) {
+			console.error("Le token a expiré");
+		} else if (error.message.includes("Wrong number of segments")) {
+			console.error("Format de token invalide");
+		} else if (error.message.includes("Can't parse token payload")) {
+			console.error("Impossible d'analyser le token");
+		}
+		
+		throw new Error(`Échec de l'authentification Google: ${error.message}`);
 	}
 };
-
-export default verifyGoogleToken;
