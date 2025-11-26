@@ -93,51 +93,18 @@
               <a class="btn btn-nav-custom w-100 h-100 d-flex justify-content-center align-items-center"id="contact-custom" href="#">Contact</a>
             </li>
             <li class="nav-item flex-fill h-100 ">
-              <a class="btn btn-nav-custom w-100 h-100 d-flex justify-content-center align-items-center"id="contact-custom" href="/signup">Connexion</a>
+              <% if (locals.isAuthenticated) { %>
+                <a class="btn btn-nav-custom w-100 h-100 d-flex justify-content-center align-items-center" id="dashboard-custom" href="/dashboard">
+                  <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                </a>
+              <% } else { %>
+                <a class="btn btn-nav-custom w-100 h-100 d-flex justify-content-center align-items-center" id="login-custom" href="/signup">
+                  <i class="fas fa-sign-in-alt me-2"></i>Connexion
+                </a>
+              <% } %>
             </li>
           </ul>
         </div>
-        <div class="ms-auto d-flex align-items-center">
-    <% if (locals.isAuthenticated && locals.user) { %>
-        <!-- Affiché quand l'utilisateur est connecté -->
-        <div class="dropdown">
-            <button class="btn btn-link text-decoration-none dropdown-toggle d-flex align-items-center" 
-                   type="button" 
-                   id="profileDropdown" 
-                   data-bs-toggle="dropdown" 
-                   aria-expanded="false">
-                <img src="<%= user.photo || '/images/default-avatar.png' %>" 
-                     alt="Photo de profil" 
-                     class="rounded-circle me-2"
-                     style="width: 32px; height: 32px; object-fit: cover;">
-                <span class="text-dark"><%= user.name || 'Mon Profil' %></span>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                <li><a class="dropdown-item" href="/profile"><i class="fas fa-user me-2"></i>Mon Profil</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-danger" href="/auth/logout"><i class="fas fa-sign-out-alt me-2"></i>Déconnexion</a></li>
-            </ul>
-        </div>
-    <% } else { %>
-        <!-- Bouton de connexion Google -->
-        <div class="d-flex align-items-center">
-            <div id="g_id_onload"
-                 data-client_id="<%=process.env.GOOGLE_CLIENT_ID%>"
-                 data-callback="onSignIn"
-                 data-auto_prompt="false">
-            </div>
-            <div class="g_id_signin"
-                 data-type="standard"
-                 data-size="small"
-                 data-theme="outline"
-                 data-text="sign_in_with"
-                 data-shape="rectangular"
-                 data-logo_alignment="left">
-            </div>
-        </div>
-    <% } %>
-</div>
-    </div>
     </nav>
   </header>
   

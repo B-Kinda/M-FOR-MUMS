@@ -10,21 +10,23 @@ export const verifyGoogleToken = async (idToken) => {
 		}
 
 		if (!process.env.GOOGLE_CLIENT_ID) {
-			console.error("GOOGLE_CLIENT_ID n'est pas défini dans les variables d'environnement");
+			console.error(
+				"GOOGLE_CLIENT_ID n'est pas défini dans les variables d'environnement",
+			);
 			throw new Error("Configuration serveur incomplète");
 		}
 
 		console.log("Début de la vérification du token...");
 		console.log("Longueur du token:", idToken.length);
 		console.log("Client ID utilisé:", process.env.GOOGLE_CLIENT_ID);
-		
+
 		const ticket = await client.verifyIdToken({
 			idToken,
 			audience: process.env.GOOGLE_CLIENT_ID,
 		});
-		
+
 		const payload = ticket.getPayload();
-		
+
 		if (!payload) {
 			console.error("Aucune charge utile (payload) dans le ticket");
 			throw new Error("Token invalide");
@@ -34,7 +36,7 @@ export const verifyGoogleToken = async (idToken) => {
 			userid: payload.sub,
 			email: payload.email,
 			name: payload.name,
-			hosted_domain: payload.hd // Domaine hébergé (pour les comptes G Suite)
+			hosted_domain: payload.hd, // Domaine hébergé (pour les comptes G Suite)
 		});
 
 		return {
@@ -46,7 +48,7 @@ export const verifyGoogleToken = async (idToken) => {
 	} catch (error) {
 		console.error("Erreur de vérification du token Google:", error.message);
 		console.error("Stack trace:", error.stack);
-		
+
 		if (error.message.includes("Token used too late")) {
 			console.error("Le token a expiré");
 		} else if (error.message.includes("Wrong number of segments")) {
@@ -54,7 +56,7 @@ export const verifyGoogleToken = async (idToken) => {
 		} else if (error.message.includes("Can't parse token payload")) {
 			console.error("Impossible d'analyser le token");
 		}
-		
+
 		throw new Error(`Échec de l'authentification Google: ${error.message}`);
 	}
 };

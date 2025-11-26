@@ -4,42 +4,56 @@ import jwt from "jsonwebtoken";
 const auth = (req, res, next) => {
 	try {
 		// Debug request headers and cookies
-		console.log('=== Auth Middleware Debug ===');
-		console.log('Request Method:', req.method);
-		console.log('Request URL:', req.originalUrl);
-		console.log('Request Headers:', JSON.stringify(req.headers, null, 2));
-		console.log('Raw Cookies:', req.headers.cookie || 'No cookies in headers');
-		console.log('Parsed Cookies:', req.cookies || 'No parsed cookies');
-		console.log('Signed Cookies:', req.signedCookies || 'No signed cookies');
+		console.log("=== Auth Middleware Debug ===");
+		console.log("Request Method:", req.method);
+		console.log("Request URL:", req.originalUrl);
+		console.log("Request Headers:", JSON.stringify(req.headers, null, 2));
+		console.log("Raw Cookies:", req.headers.cookie || "No cookies in headers");
+		console.log("Parsed Cookies:", req.cookies || "No parsed cookies");
+		console.log("Signed Cookies:", req.signedCookies || "No signed cookies");
 
 		// Check token in Authorization header
 		const authHeader = req.header("Authorization");
-		const tokenFromHeader = authHeader?.startsWith('Bearer ') ? authHeader.replace('Bearer ', '') : null;
-		
+		const tokenFromHeader = authHeader?.startsWith("Bearer ")
+			? authHeader.replace("Bearer ", "")
+			: null;
+
 		// Check token in cookies (try both signed and unsigned)
 		const tokenFromCookies = req.cookies?.token;
 		const tokenFromSignedCookies = req.signedCookies?.token;
-		
+
 		// Log all possible token sources
-		console.log('Token sources:', {
-			header: tokenFromHeader ? 'Token found in header' : 'No token in header',
-			cookies: tokenFromCookies ? 'Token found in cookies' : 'No token in cookies',
-			signedCookies: tokenFromSignedCookies ? 'Token found in signed cookies' : 'No token in signed cookies'
+		console.log("Token sources:", {
+			header: tokenFromHeader ? "Token found in header" : "No token in header",
+			cookies: tokenFromCookies
+				? "Token found in cookies"
+				: "No token in cookies",
+			signedCookies: tokenFromSignedCookies
+				? "Token found in signed cookies"
+				: "No token in signed cookies",
 		});
-		
+
 		// Try to get token from any source
 		const token = tokenFromHeader || tokenFromSignedCookies || tokenFromCookies;
 
-		console.log('Auth Middleware - Token sources:', {
-			header: authHeader ? 'Authorization header present' : 'No Authorization header',
-			tokenFromHeader: tokenFromHeader ? 'Token in header' : 'No token in header',
-			tokenFromCookies: tokenFromCookies ? 'Token in cookies' : 'No token in cookies',
-			tokenFromSignedCookies: tokenFromSignedCookies ? 'Token in signed cookies' : 'No token in signed cookies',
-			finalToken: token ? 'Token found' : 'No token found in any source'
+		console.log("Auth Middleware - Token sources:", {
+			header: authHeader
+				? "Authorization header present"
+				: "No Authorization header",
+			tokenFromHeader: tokenFromHeader
+				? "Token in header"
+				: "No token in header",
+			tokenFromCookies: tokenFromCookies
+				? "Token in cookies"
+				: "No token in cookies",
+			tokenFromSignedCookies: tokenFromSignedCookies
+				? "Token in signed cookies"
+				: "No token in signed cookies",
+			finalToken: token ? "Token found" : "No token found in any source",
 		});
 
 		if (!token) {
-			console.log('Auth Middleware - No token found in request');
+			console.log("Auth Middleware - No token found in request");
 			return res.status(401).json({
 				isAuthenticated: false,
 				message: "Accès non autorisé - Aucun token fourni",
@@ -48,51 +62,59 @@ const auth = (req, res, next) => {
 
 		try {
 			// Use the same JWT secret as in jwtGenerator.js
-			const JWT_SECRET = process.env.JWT_SECRET || '9de17fbfe06594d1706578446e0b6b16191b59e4fcd40e4728d50095f85ccc05b722daa0bf0e41c848ea15bd9f5dd0b394241937a703d734477a54ee0d50ea3e';
-			
+			const JWT_SECRET = process.env.JWT_SECRET;
+
 			if (!JWT_SECRET) {
-				throw new Error('JWT_SECRET is not defined');
+				throw new Error("JWT_SECRET is not defined");
 			}
-			
-			console.log('Auth Middleware - Verifying token with JWT_SECRET of length:', JWT_SECRET.length);
-			
+
+			console.log(
+				"Auth Middleware - Verifying token with JWT_SECRET of length:",
+				JWT_SECRET.length,
+			);
+
 			// Decode token without verification for debugging
 			try {
 				const decodedWithoutVerify = jwt.decode(token, { complete: true });
-				console.log('Auth Middleware - Token décodé (non vérifié):', {
+				console.log("Auth Middleware - Token décodé (non vérifié):", {
 					header: decodedWithoutVerify.header,
 					payload: {
 						id: decodedWithoutVerify.payload.id,
 						email: decodedWithoutVerify.payload.email,
-						exp: new Date(decodedWithoutVerify.payload.exp * 1000).toISOString()
-					}
+						exp: new Date(
+							decodedWithoutVerify.payload.exp * 1000,
+						).toISOString(),
+					},
 				});
 			} catch (decodeError) {
-				console.error('Erreur lors du décodage du token (non critique):', decodeError.message);
+				console.error(
+					"Erreur lors du décodage du token (non critique):",
+					decodeError.message,
+				);
 			}
-			
+
 			// Vérifier le token
 			const decoded = jwt.verify(token, JWT_SECRET);
-			
-			console.log('Auth Middleware - Token vérifié avec succès:', {
+
+			console.log("Auth Middleware - Token vérifié avec succès:", {
 				userId: decoded.id,
 				email: decoded.email,
 				exp: new Date(decoded.exp * 1000).toISOString(),
-				now: new Date().toISOString()
+				now: new Date().toISOString(),
 			});
-			
+
 			req.user = decoded;
 			next();
 		} catch (verifyError) {
-			console.error('Auth Middleware - Token verification failed:', {
+			console.error("Auth Middleware - Token verification failed:", {
 				error: verifyError.message,
 				name: verifyError.name,
-				token: token.substring(0, 10) + '...' // Log first 10 chars of token
+				token: token.substring(0, 10) + "...", // Log first 10 chars of token
 			});
 			return res.status(401).json({
 				isAuthenticated: false,
 				message: `Erreur de token: ${verifyError.message}`,
-				type: verifyError.name
+				type: verifyError.name,
 			});
 		}
 	} catch (error) {
@@ -114,7 +136,9 @@ const checkAuth = (req, res, next) => {
 	try {
 		// Récupérer le token depuis les cookies ou le header Authorization
 		let token =
-			req.cookies?.token || req.signedCookies?.token || req.header("Authorization")?.replace("Bearer ", "");
+			req.cookies?.token ||
+			req.signedCookies?.token ||
+			req.header("Authorization")?.replace("Bearer ", "");
 
 		// Nettoyer le token s'il est entouré de guillemets
 		if (token) {
@@ -122,13 +146,18 @@ const checkAuth = (req, res, next) => {
 
 			try {
 				// Use the same JWT secret as in jwtGenerator.js
-				const JWT_SECRET = process.env.JWT_SECRET || '9de17fbfe06594d1706578446e0b6b16191b59e4fcd40e4728d50095f85ccc05b722daa0bf0e41c848ea15bd9f5dd0b394241937a703d734477a54ee0d50ea3e';
-		
+				const JWT_SECRET =
+					process.env.JWT_SECRET ||
+					"9de17fbfe06594d1706578446e0b6b16191b59e4fcd40e4728d50095f85ccc05b722daa0bf0e41c848ea15bd9f5dd0b394241937a703d734477a54ee0d50ea3e";
+
 				if (!JWT_SECRET) {
-					throw new Error('JWT_SECRET is not defined');
+					throw new Error("JWT_SECRET is not defined");
 				}
 
-				console.log('CheckAuth - Verifying token with JWT_SECRET of length:', JWT_SECRET.length);
+				console.log(
+					"CheckAuth - Verifying token with JWT_SECRET of length:",
+					JWT_SECRET.length,
+				);
 				const decoded = jwt.verify(token, JWT_SECRET);
 
 				// Ensure photo has the correct format

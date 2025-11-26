@@ -1,5 +1,5 @@
 const mainController = {
-	homepage: (req, res) => {
+	homepage: (_req, res) => {
 		try {
 			res.render("home.page.ejs");
 		} catch (error) {
