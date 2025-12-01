@@ -1,16 +1,4 @@
 <%- include('partials/header') %>
-<!-- Google Identity Services -->
-<script src="https://accounts.google.com/gsi/client" async defer></script>
-
-<!-- One Tap Sign In -->
-<div id="g_id_onload"
-        data-client_id="<%= process.env.GOOGLE_CLIENT_ID %>"
-        data-context="signin"
-        data-ux_mode="popup"
-        data-login_uri="/auth/google/callback"
-        data-auto_prompt="true"
-        data-use_fedcm_for_prompt="true">
-</div>
 
 <!-- Google Sign In Button - Version personnalisée -->
 
@@ -21,9 +9,6 @@
             <h1>Create Account</h1>
             <div class="or-separator">
                 <div class="google-btn-container">
-                    <div id="g_id_onload"
-                        data-client_id="<%= process.env.GOOGLE_CLIENT_ID %>">
-                    </div>
                     <div class="g_id_signin custom-google-btn"
                         data-type="icon"
                         data-shape="circle"    
@@ -47,9 +32,6 @@
             <h1>Sign In</h1>
                 <div class="or-separator">
                 <div class="google-btn-container">
-                    <div id="g_id_onload"
-                        data-client_id="<%= process.env.GOOGLE_CLIENT_ID %>">
-                    </div>
                     <div class="g_id_signin custom-google-btn"
                         data-type="icon"
                         data-shape="circle"    
