@@ -20,7 +20,6 @@
 	"homepage": "https://github.com/B-Kinda/M-FOR-MUMS#readme",
 	"dependencies": {
 		"autoprefixer": "^10.4.21",
-		"bootstrap": "^5.3.8",
 		"cookie-parser": "^1.4.7",
 		"cssnano": "^7.1.1",
 		"dotenv": "^16.0.3",
